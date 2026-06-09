@@ -1,0 +1,24 @@
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+
+# Node / React Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.*
+frontend/npm-debug.log*
+
+# Java / Spring Boot Backend
+backend/target/
+backend/*.jar
+backend/*.war
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/logs/
+
+# General OS
+.DS_Store
+Thumbs.db
