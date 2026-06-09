@@ -15,7 +15,7 @@ export default function Signup() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  
+
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -68,7 +68,7 @@ export default function Signup() {
           )}
 
           <form className="space-y-5" onSubmit={handleSignup}>
-            <Input 
+            <Input
               label="Full Name"
               icon="person"
               name="fullName"
@@ -78,7 +78,7 @@ export default function Signup() {
               required
             />
 
-            <Input 
+            <Input
               label="Email Address"
               icon="mail"
               type="email"
@@ -97,7 +97,7 @@ export default function Signup() {
                 <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
                   lock
                 </span>
-                <input 
+                <input
                   type={showPassword ? 'text' : 'password'}
                   name="password"
                   className="w-full pl-10 pr-12 py-2.5 bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md rounded-lg input-focus-ring transition-all placeholder:text-outline/50"
@@ -106,7 +106,7 @@ export default function Signup() {
                   placeholder="••••••••"
                   required
                 />
-                <button 
+                <button
                   type="button"
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors"
                   onClick={() => setShowPassword(!showPassword)}
@@ -118,7 +118,7 @@ export default function Signup() {
               </div>
             </div>
 
-            <Input 
+            <Input
               label="Confirm Password"
               icon="lock"
               type={showPassword ? 'text' : 'password'}
