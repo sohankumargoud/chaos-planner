@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { authService } from '../../services/services'
 import { useAuth } from '../../auth/AuthContext'
 import { Button } from '../../components/ui/Button'
@@ -14,7 +14,18 @@ export default function UserLogin() {
   const [showPassword, setShowPassword] = useState(false)
   
   const navigate = useNavigate()
-  const { login } = useAuth()
+  const location = useLocation()
+  const { login, user } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      if (user.roles?.includes('ROLE_ADMIN')) {
+        navigate('/admin/dashboard', { replace: true })
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
+    }
+  }, [user, navigate])
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -51,6 +62,13 @@ export default function UserLogin() {
             <h2 className="font-headline-lg text-headline-lg text-on-surface">Welcome Back</h2>
             <p className="font-body-sm text-body-sm text-on-surface-variant">Sign in to view your tickets and shifts.</p>
           </div>
+
+          {location.state?.message && !error && (
+            <div className="bg-green-50 text-green-800 border border-green-200 p-4 rounded-lg mb-6 font-body-sm flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">check_circle</span>
+              {location.state.message}
+            </div>
+          )}
 
           {error && (
             <div className="bg-error-container text-on-error-container p-4 rounded-lg mb-6 font-body-sm">

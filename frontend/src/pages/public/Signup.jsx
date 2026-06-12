@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../auth/AuthContext'
 import { authService } from '../../services/services'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -17,6 +18,17 @@ export default function Signup() {
   const [showPassword, setShowPassword] = useState(false)
 
   const navigate = useNavigate()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (user) {
+      if (user.roles?.includes('ROLE_ADMIN')) {
+        navigate('/admin/dashboard', { replace: true })
+      } else {
+        navigate('/dashboard', { replace: true })
+      }
+    }
+  }, [user, navigate])
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
