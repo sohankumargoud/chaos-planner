@@ -201,6 +201,9 @@ export default function LandingPage() {
         </div>
         <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-outline-variant flex justify-between items-center font-label-sm text-label-sm text-secondary">
           <p>© 2026 Chaos Planner. Built for operators.</p>
+          <button onClick={() => navigate('/admin/login')} className="hover:text-primary transition-colors opacity-50 hover:opacity-100">
+            Staff Access
+          </button>
         </div>
       </footer>
     </div>
