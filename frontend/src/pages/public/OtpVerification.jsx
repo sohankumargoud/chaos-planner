@@ -17,6 +17,7 @@ export default function OtpVerification() {
   
   const email = location.state?.email || ''
   const otpType = location.state?.otpType || 'SIGNUP'
+  const isAdmin = location.state?.isAdmin || false
 
   useEffect(() => {
     if (!email) {
@@ -62,7 +63,7 @@ export default function OtpVerification() {
       await authService.verifyOtp({ email, otpCode: code, otpType })
       setSuccess(true)
       setTimeout(() => {
-        navigate('/login', { state: { message: 'Verification successful. You can now log in.' } })
+        navigate(isAdmin ? '/admin/login' : '/login', { state: { message: 'Verification successful. You can now log in.' } })
       }, 2000)
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid or expired OTP')

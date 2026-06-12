@@ -40,7 +40,7 @@ export default function AdminSignup() {
         secretCode: formData.secretCode
       })
       // Send OTP is triggered by backend, navigate to verify OTP
-      navigate('/verify-otp', { state: { email: formData.email, otpType: 'SIGNUP' } })
+      navigate('/verify-otp', { state: { email: formData.email, otpType: 'SIGNUP', isAdmin: true } })
     } catch (err) {
       setError(err.response?.data?.message || 'Admin registration failed')
     } finally {
