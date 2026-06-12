@@ -18,10 +18,14 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => res,
   (err) => {
-    if (err.response?.status === 401) {
+    const isAuthEndpoint = err.config?.url?.includes('/auth/')
+    
+    if (err.response?.status === 401 && !isAuthEndpoint) {
       localStorage.removeItem('cp_token')
       localStorage.removeItem('cp_user')
-      window.location.href = '/login'
+      
+      const isUrlAdmin = window.location.pathname.startsWith('/admin')
+      window.location.href = isUrlAdmin ? '/admin/login' : '/login'
     }
     return Promise.reject(err)
   }
