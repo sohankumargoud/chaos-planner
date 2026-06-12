@@ -20,16 +20,6 @@ export default function Signup() {
   const navigate = useNavigate()
   const { user } = useAuth()
 
-  useEffect(() => {
-    if (user) {
-      if (user.roles?.includes('ROLE_ADMIN')) {
-        navigate('/admin/dashboard', { replace: true })
-      } else {
-        navigate('/dashboard', { replace: true })
-      }
-    }
-  }, [user, navigate])
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }

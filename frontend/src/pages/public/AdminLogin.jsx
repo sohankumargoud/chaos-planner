@@ -16,16 +16,6 @@ export default function AdminLogin() {
   const location = useLocation()
   const { login, user } = useAuth()
 
-  useEffect(() => {
-    if (user) {
-      if (user.roles?.includes('ROLE_ADMIN')) {
-        navigate('/admin/dashboard', { replace: true })
-      } else {
-        navigate('/dashboard', { replace: true })
-      }
-    }
-  }, [user, navigate])
-
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoading(true)
