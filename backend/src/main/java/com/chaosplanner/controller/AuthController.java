@@ -66,6 +66,14 @@ public class AuthController {
         return ResponseEntity.ok(authService.loginAdmin(request));
     }
 
+    @PostMapping("/admin/signup")
+    @Operation(summary = "Admin signup portal")
+    public ResponseEntity<Map<String, String>> signupAdmin(@Valid @RequestBody AdminSignupRequest request) {
+        authService.signupAdmin(request);
+        return ResponseEntity.status(HttpStatus.CREATED)
+            .body(Map.of("message", "Admin account created. Please verify with the OTP sent to your email."));
+    }
+
     @PostMapping("/forgot-password")
     @Operation(summary = "Send password reset OTP")
     public ResponseEntity<Map<String, String>> forgotPassword(

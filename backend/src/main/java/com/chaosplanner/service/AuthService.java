@@ -37,6 +37,9 @@ public class AuthService {
     private final UserDetailsService userDetailsService;
     private final OtpService otpService;
 
+    @org.springframework.beans.factory.annotation.Value("${app.admin.secret-code}")
+    private String adminSecretCode;
+
     @Transactional
     public void signup(SignupRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
@@ -59,6 +62,33 @@ public class AuthService {
         // Send OTP
         otpService.sendOtp(user, "SIGNUP");
         log.info("New user registered: {}", user.getEmail());
+    }
+
+    @Transactional
+    public void signupAdmin(AdminSignupRequest request) {
+        if (!request.getSecretCode().equals(adminSecretCode)) {
+            throw new ApiException("Invalid admin registration code", HttpStatus.FORBIDDEN, "INVALID_SECRET");
+        }
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new ApiException("Email already registered", HttpStatus.CONFLICT, "EMAIL_TAKEN");
+        }
+
+        Role adminRole = roleRepository.findByName("ROLE_ADMIN")
+            .orElseThrow(() -> new ApiException("Role not configured", HttpStatus.INTERNAL_SERVER_ERROR, "ROLE_MISSING"));
+
+        User user = new User();
+        user.setFullName(request.getFullName());
+        user.setEmail(request.getEmail());
+        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+        user.setVerified(false);
+        user.getRoles().add(adminRole);
+
+        userRepository.save(user);
+
+        // Send OTP
+        otpService.sendOtp(user, "SIGNUP");
+        log.info("New admin registered: {}", user.getEmail());
     }
 
     public AuthResponse loginUser(LoginRequest request) {

@@ -6,6 +6,7 @@ import ProtectedRoute from './auth/ProtectedRoute'
 // Public pages
 import LandingPage from './pages/public/LandingPage'
 import AdminLogin from './pages/public/AdminLogin'
+import AdminSignup from './pages/public/AdminSignup'
 import UserLogin from './pages/public/UserLogin'
 import Signup from './pages/public/Signup'
 import OtpVerification from './pages/public/OtpVerification'
@@ -43,6 +44,7 @@ export default function App() {
           {/* Public */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/signup" element={<AdminSignup />} />
           <Route path="/login" element={<UserLogin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-otp" element={<OtpVerification />} />

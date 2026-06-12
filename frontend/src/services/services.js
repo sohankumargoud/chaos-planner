@@ -2,6 +2,7 @@ import api from './api'
 
 export const authService = {
   signup: (data) => api.post('/auth/signup', data),
+  signupAdmin: (data) => api.post('/auth/admin/signup', data),
   verifyOtp: (data) => api.post('/auth/verify-otp', data),
   resendOtp: (email, otpType) => api.post(`/auth/resend-otp?email=${email}&otpType=${otpType}`),
   loginUser: (data) => api.post('/auth/user/login', data),

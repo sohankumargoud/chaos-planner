@@ -15,10 +15,9 @@ export default function LandingPage() {
   return (
     <div className="selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen bg-surface-container-lowest">
       {/* TopAppBar */}
-      <header 
-        className={`flex justify-between items-center h-header-height px-container-margin w-full sticky top-0 z-50 transition-all ${
-          scrolled ? 'shadow-sm bg-white/95 backdrop-blur-md' : 'bg-surface-container-lowest border-b border-outline-variant'
-        }`}
+      <header
+        className={`flex justify-between items-center h-header-height px-container-margin w-full sticky top-0 z-50 transition-all ${scrolled ? 'shadow-sm bg-white/95 backdrop-blur-md' : 'bg-surface-container-lowest border-b border-outline-variant'
+          }`}
       >
         <div className="flex items-center gap-8">
           <span className="font-display text-display font-bold text-primary">Chaos Planner</span>
@@ -44,7 +43,7 @@ export default function LandingPage() {
           <div className="max-w-4xl mx-auto">
             <span className="font-label-sm text-label-sm uppercase tracking-widest text-primary mb-4 block">Operations-First Management</span>
             <h1 className="font-display text-6xl md:text-7xl font-extrabold tracking-tighter text-on-surface mb-6">
-              Manage the Chaos, <br/> <span className="text-primary">Not Just the Guestlist.</span>
+              Manage the Chaos, <br /> <span className="text-primary">Not Just the Guestlist.</span>
             </h1>
             <p className="font-body-lg text-body-lg text-secondary max-w-2xl mx-auto mb-10">
               The operations-first event management platform for college clubs and community organizers. Stop fighting spreadsheets and start executing perfectly.
@@ -65,7 +64,7 @@ export default function LandingPage() {
         <section className="px-container-margin py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {/* Admin Card */}
-            <div 
+            <div
               onClick={() => navigate('/admin/login')}
               className="group relative bg-white border border-outline-variant p-8 hover:border-primary transition-colors cursor-pointer overflow-hidden rounded-xl"
             >
@@ -85,7 +84,7 @@ export default function LandingPage() {
             </div>
 
             {/* User Card */}
-            <div 
+            <div
               onClick={() => navigate('/login')}
               className="group relative bg-white border border-outline-variant p-8 hover:border-primary transition-colors cursor-pointer overflow-hidden rounded-xl"
             >
