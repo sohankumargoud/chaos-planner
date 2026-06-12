@@ -8,6 +8,10 @@ import lombok.Data;
 public class OtpVerifyRequest {
     @NotBlank @Email
     private String email;
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim().toLowerCase();
+    }
     @NotBlank
     private String otpCode;
     @NotBlank
