@@ -53,36 +53,13 @@ export default function LandingPage() {
                 Get Started Free
                 <span className="material-symbols-outlined">arrow_forward</span>
               </Button>
-              <Button variant="ghost" onClick={() => navigate('/admin/login')} className="px-8 py-3 border border-outline-variant">
-                Admin Portal
-              </Button>
             </div>
           </div>
         </section>
 
-        {/* Entry Cards (Split Section) */}
+        {/* Entry Cards (Single User Entry) */}
         <section className="px-container-margin py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {/* Admin Card */}
-            <div
-              onClick={() => navigate('/admin/login')}
-              className="group relative bg-white border border-outline-variant p-8 hover:border-primary transition-colors cursor-pointer overflow-hidden rounded-xl"
-            >
-              <div className="relative z-10">
-                <div className="w-12 h-12 bg-primary-container text-white flex items-center justify-center mb-6 rounded-lg">
-                  <span className="material-symbols-outlined">dashboard</span>
-                </div>
-                <h3 className="font-headline-lg text-headline-lg mb-2">Admin Dashboard</h3>
-                <p className="font-body-md text-body-md text-secondary mb-6">Command center for club leads. Manage staffing, rooms, and real-time analytics for your organization.</p>
-                <span className="font-label-md text-label-md font-bold text-primary flex items-center gap-2 group-hover:translate-x-1 transition-transform">
-                  ENTER ORGANIZER PORTAL <span className="material-symbols-outlined text-sm">north_east</span>
-                </span>
-              </div>
-              <div className="absolute -right-12 -bottom-12 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
-                <span className="material-symbols-outlined text-[12rem]">settings</span>
-              </div>
-            </div>
-
+          <div className="max-w-2xl mx-auto">
             {/* User Card */}
             <div
               onClick={() => navigate('/login')}
