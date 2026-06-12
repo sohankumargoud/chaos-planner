@@ -2,17 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { adminEventService, adminRegService, adminShiftService } from '../../services/services'
 
-const DEMO_EVENT = { id: 'e001', title: 'TechFest 2026', status: 'PUBLISHED', category: 'Technology', eventDate: '2026-07-15', startTime: '09:00', endTime: '18:00', capacity: 400, venueName: 'Main Campus Hall', roomName: 'Auditorium A', description: 'The biggest annual tech summit for students. Features keynotes, workshops, hackathon, and networking.', registrationCount: 2, checkedInCount: 1, waitlistCount: 0, approvalRequired: false }
-const DEMO_REGS = [
-  { id: 'r001', user: { fullName: 'Alice Johnson', email: 'alice@example.com' }, status: 'APPROVED', registeredAt: '2026-06-01' },
-  { id: 'r002', user: { fullName: 'Bob Martinez', email: 'bob@example.com' }, status: 'APPROVED', registeredAt: '2026-06-02' },
-  { id: 'r003', user: { fullName: 'Carol Smith', email: 'carol@example.com' }, status: 'PENDING', registeredAt: '2026-06-03' },
-]
+
 
 export default function EventDetail() {
   const { id } = useParams()
-  const [event, setEvent] = useState(DEMO_EVENT)
-  const [regs, setRegs] = useState(DEMO_REGS)
+  const [event, setEvent] = useState({})
+  const [regs, setRegs] = useState([])
   const [shifts, setShifts] = useState([])
   const [activeTab, setActiveTab] = useState('registrations')
   const [loading, setLoading] = useState(false)
@@ -38,6 +33,14 @@ export default function EventDetail() {
   }
 
   const STATUS_COLORS = { APPROVED: 'badge-approved', PENDING: 'badge-pending', REJECTED: 'badge-rejected', CANCELLED: 'badge-cancelled', WAITLISTED: 'badge-waitlisted' }
+
+  if (loading || !event.id) {
+    return (
+      <div className="page-content py-12 flex justify-center text-secondary">
+        <span className="material-symbols-outlined animate-spin text-[32px]">sync</span>
+      </div>
+    )
+  }
 
   return (
     <div className="page-content">

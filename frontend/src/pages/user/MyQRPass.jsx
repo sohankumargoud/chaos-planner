@@ -4,14 +4,13 @@ import { userRegService } from '../../services/services'
 import { QRCodeSVG } from 'qrcode.react'
 import { Card } from '../../components/layout/Card'
 
-const DEMO_REGS = [
-  { id: 'r001', event: { title: 'TechFest 2026', eventDate: '2026-07-15', venueName: 'Main Campus Hall' }, status: 'APPROVED' },
-]
+import api from '../../services/api'
 
 export default function MyQRPass() {
   const { user } = useAuth()
-  const [regs, setRegs] = useState(DEMO_REGS)
+  const [regs, setRegs] = useState([])
   const [selected, setSelected] = useState(null)
+  const [qrImgUrl, setQrImgUrl] = useState(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -20,19 +19,24 @@ export default function MyQRPass() {
       .then(res => {
         const approved = (res.data || []).filter(r => r.status === 'APPROVED')
         if (approved.length) { setRegs(approved); setSelected(approved[0]) }
-        else setSelected(DEMO_REGS[0])
       })
-      .catch(() => setSelected(DEMO_REGS[0]))
+      .catch(() => {})
       .finally(() => setLoading(false))
   }, [])
 
   const approvedRegs = regs.filter(r => r.status === 'APPROVED')
   const activeReg = selected || approvedRegs[0]
 
-  // Build a QR payload string
-  const qrPayload = activeReg
-    ? `CHAOSPLANNER:REG:${activeReg.id}:USER:${user?.id || 'demo'}:EVENT:${activeReg.event?.title}`
-    : 'CHAOSPLANNER:DEMO'
+  useEffect(() => {
+    if (activeReg?.id) {
+      api.get(`/user/my-qr/${activeReg.id}`, { responseType: 'blob' })
+        .then(res => {
+          const url = URL.createObjectURL(res.data)
+          setQrImgUrl(url)
+        })
+        .catch(err => console.error('Failed to load QR image', err))
+    }
+  }, [activeReg?.id])
 
   if (loading) {
     return (
@@ -95,13 +99,13 @@ export default function MyQRPass() {
 
               {/* QR Code */}
               <div className="inline-block p-4 bg-white rounded-xl border border-outline-variant shadow-sm mb-5">
-                <QRCodeSVG
-                  value={qrPayload}
-                  size={200}
-                  level="H"
-                  includeMargin={false}
-                  style={{ display: 'block' }}
-                />
+                {qrImgUrl ? (
+                  <img src={qrImgUrl} alt="Entry QR Pass" className="w-[200px] h-[200px] object-contain" />
+                ) : (
+                  <div className="w-[200px] h-[200px] flex items-center justify-center text-secondary">
+                    <span className="material-symbols-outlined animate-spin text-[32px]">sync</span>
+                  </div>
+                )}
               </div>
 
               <div className="flex justify-center mb-4">
@@ -111,7 +115,7 @@ export default function MyQRPass() {
               </div>
 
               <div className="text-[10px] text-outline font-mono-sm break-all mt-4 px-4">
-                {qrPayload.slice(0, 60)}...
+                {activeReg?.id}
               </div>
             </div>
           </Card>

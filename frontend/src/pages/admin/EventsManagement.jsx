@@ -12,15 +12,10 @@ const STATUS_COLORS = {
   CANCELLED: 'bg-red-100 text-red-800',
 }
 
-const DEMO_EVENTS = [
-  { id: 'e001', title: 'TechFest 2026', category: 'Technology', status: 'PUBLISHED', eventDate: '2026-07-15', capacity: 400, registrationCount: 2, venueName: 'Main Campus Hall' },
-  { id: 'e002', title: 'Leadership Workshop', category: 'Workshop', status: 'PUBLISHED', eventDate: '2026-07-20', capacity: 100, registrationCount: 2, venueName: 'Innovation Hub' },
-  { id: 'e003', title: 'Culture Fest', category: 'Cultural', status: 'PUBLISHED', eventDate: '2026-07-25', capacity: 250, registrationCount: 0, venueName: 'Student Union Building' },
-  { id: 'e004', title: 'Club Orientation Day', category: 'Orientation', status: 'DRAFT', eventDate: '2026-08-05', capacity: 80, registrationCount: 0, venueName: 'Main Campus Hall' },
-]
+
 
 export default function EventsManagement() {
-  const [events, setEvents] = useState(DEMO_EVENTS)
+  const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('')

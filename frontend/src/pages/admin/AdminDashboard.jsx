@@ -4,23 +4,23 @@ import { analyticsService, adminAnnouncementService } from '../../services/servi
 import { Card } from '../../components/layout/Card'
 import { Button } from '../../components/ui/Button'
 
-const DEMO_METRICS = {
-  totalEvents: 4,
-  publishedEvents: 3,
-  draftEvents: 1,
-  totalRegistrations: 8,
-  pendingApprovals: 2,
+const DEFAULT_METRICS = {
+  totalEvents: 0,
+  publishedEvents: 0,
+  draftEvents: 0,
+  totalRegistrations: 0,
+  pendingApprovals: 0,
   waitlisted: 0,
-  unresolvedConflicts: 1,
-  urgentAnnouncements: 1,
-  totalVolunteerSlots: 20,
-  filledVolunteerSlots: 12,
-  understaffedShifts: 3,
-  volunteerFillRate: 60,
+  unresolvedConflicts: 0,
+  urgentAnnouncements: 0,
+  totalVolunteerSlots: 0,
+  filledVolunteerSlots: 0,
+  understaffedShifts: 0,
+  volunteerFillRate: 0,
 }
 
 export default function AdminDashboard() {
-  const [metrics, setMetrics] = useState(DEMO_METRICS)
+  const [metrics, setMetrics] = useState(DEFAULT_METRICS)
   const [announcements, setAnnouncements] = useState([])
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()

@@ -11,19 +11,12 @@ const STATUS_COLORS = {
   WAITLISTED: 'bg-blue-100 text-blue-800' 
 }
 
-const DEMO_EVENTS = [{ id: 'e001', title: 'TechFest 2026' }, { id: 'e002', title: 'Leadership Workshop' }]
-const DEMO_REGS = [
-  { id: 'r001', user: { fullName: 'Alice Johnson', email: 'alice@example.com' }, status: 'APPROVED', registeredAt: '2026-06-01T00:00:00' },
-  { id: 'r002', user: { fullName: 'Bob Martinez', email: 'bob@example.com' }, status: 'APPROVED', registeredAt: '2026-06-02T00:00:00' },
-  { id: 'r003', user: { fullName: 'Carol Smith', email: 'carol@example.com' }, status: 'PENDING', registeredAt: '2026-06-03T00:00:00' },
-  { id: 'r004', user: { fullName: 'David Lee', email: 'david@example.com' }, status: 'APPROVED', registeredAt: '2026-06-03T00:00:00' },
-  { id: 'r005', user: { fullName: 'Eva Williams', email: 'eva@example.com' }, status: 'PENDING', registeredAt: '2026-06-04T00:00:00' },
-]
+
 
 export default function RegistrationsPage() {
-  const [events, setEvents] = useState(DEMO_EVENTS)
+  const [events, setEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState('')
-  const [regs, setRegs] = useState(DEMO_REGS)
+  const [regs, setRegs] = useState([])
   const [statusFilter, setStatusFilter] = useState('')
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(false)
@@ -96,7 +89,7 @@ export default function RegistrationsPage() {
           value={selectedEvent} 
           onChange={e => setSelectedEvent(e.target.value)}
         >
-          <option value="">All Events (demo)</option>
+          <option value="">Select Event</option>
           {events.map(e => <option key={e.id} value={e.id}>{e.title}</option>)}
         </select>
         <select 

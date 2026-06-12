@@ -3,11 +3,7 @@ import { Link } from 'react-router-dom'
 import { userEventService } from '../../services/services'
 import { Card } from '../../components/layout/Card'
 
-const DEMO_EVENTS = [
-  { id: 'e0000000-0000-0000-0000-000000000001', title: 'TechFest 2026 — Annual Technology Summit', category: 'Technology', eventDate: '2026-07-15', startTime: '09:00', endTime: '18:00', venueName: 'Main Campus Hall', capacity: 400, registrationCount: 2, status: 'PUBLISHED', description: 'The biggest annual tech summit for students.', icon: '💻' },
-  { id: 'e0000000-0000-0000-0000-000000000002', title: 'Leadership & Governance Workshop', category: 'Workshop', eventDate: '2026-07-20', startTime: '10:00', endTime: '17:00', venueName: 'Innovation Hub', capacity: 100, registrationCount: 2, status: 'PUBLISHED', description: 'A full-day workshop on student governance.', icon: '🎓' },
-  { id: 'e0000000-0000-0000-0000-000000000003', title: 'Culture Fest — Diversity & Inclusion Night', category: 'Cultural', eventDate: '2026-07-25', startTime: '17:00', endTime: '21:00', venueName: 'Student Union Building', capacity: 250, registrationCount: 0, status: 'PUBLISHED', description: 'A cultural evening celebrating diversity.', icon: '🎭' },
-]
+
 
 const CATEGORY_COLORS = { 
   Technology: 'from-blue-500 to-blue-700', 
@@ -24,7 +20,7 @@ const CATEGORY_TEXT_COLORS = {
 }
 
 export default function EventListing() {
-  const [events, setEvents] = useState(DEMO_EVENTS)
+  const [events, setEvents] = useState([])
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
   const [loading, setLoading] = useState(false)

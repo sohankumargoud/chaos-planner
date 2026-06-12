@@ -9,11 +9,7 @@ const PRIORITY_STYLES = {
   NORMAL: { bg: 'bg-surface-container-lowest', border: 'border-outline-variant', dot: 'bg-primary', label: 'bg-surface-container-high text-secondary' },
 }
 
-const DEMO_NOTIFS = [
-  { id: 'n1', title: '🚨 URGENT: Gate B is now closed — use Gate A only', body: 'Due to maintenance, Gate B is temporarily closed. All attendees must enter through Gate A on the east side of the building.', isRead: false, createdAt: new Date(Date.now() - 30 * 60000).toISOString(), announcement: { priority: 'URGENT' } },
-  { id: 'n2', title: 'Keynote Speaker Confirmed: Dr. Sarah Chen', body: 'We are thrilled to announce Dr. Sarah Chen, CTO of Nexus Labs, as the keynote speaker for TechFest 2026. Keynote starts at 10:00 AM.', isRead: true, createdAt: new Date(Date.now() - 2 * 86400000).toISOString(), announcement: { priority: 'HIGH' } },
-  { id: 'n3', title: 'Platform Update: New QR Pass Feature Available', body: 'All registered attendees can now access their digital QR pass from the My QR Pass section.', isRead: false, createdAt: new Date(Date.now() - 5 * 86400000).toISOString(), announcement: { priority: 'NORMAL' } },
-]
+
 
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime()
@@ -25,7 +21,7 @@ function timeAgo(dateStr) {
 }
 
 export default function NotificationsPage() {
-  const [notifs, setNotifs] = useState(DEMO_NOTIFS)
+  const [notifs, setNotifs] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {

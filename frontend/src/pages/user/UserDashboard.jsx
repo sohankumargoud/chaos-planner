@@ -5,10 +5,7 @@ import { userRegService, userNotifService } from '../../services/services'
 import { Card } from '../../components/layout/Card'
 import { Button } from '../../components/ui/Button'
 
-const DEMO_REGS = [
-  { id: 'r001', event: { title: 'TechFest 2026', eventDate: '2026-07-15', venueName: 'Main Campus Hall' }, status: 'APPROVED' },
-  { id: 'r004', event: { title: 'Leadership Workshop', eventDate: '2026-07-20', venueName: 'Innovation Hub' }, status: 'PENDING' },
-]
+
 
 const STATUS_COLORS = { 
   APPROVED: 'bg-green-100 text-green-800', 
@@ -19,8 +16,8 @@ const STATUS_COLORS = {
 
 export default function UserDashboard() {
   const { user } = useAuth()
-  const [regs, setRegs] = useState(DEMO_REGS)
-  const [unread, setUnread] = useState(2)
+  const [regs, setRegs] = useState([])
+  const [unread, setUnread] = useState(0)
 
   useEffect(() => {
     Promise.allSettled([

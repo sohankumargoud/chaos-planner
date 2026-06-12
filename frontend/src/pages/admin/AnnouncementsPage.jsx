@@ -4,11 +4,7 @@ import { Card } from '../../components/layout/Card'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 
-const DEMO_ANNOUNCEMENTS = [
-  { id: 'an1', title: '🚨 URGENT: Gate B is now closed — use Gate A only', body: 'Due to maintenance, Gate B is temporarily closed.', priority: 'URGENT', targetAudience: 'ALL', event: { title: 'TechFest 2026' }, createdAt: new Date(Date.now() - 30 * 60000).toISOString() },
-  { id: 'an2', title: 'Keynote Speaker Confirmed: Dr. Sarah Chen', body: 'Dr. Sarah Chen, CTO of Nexus Labs, will be our keynote speaker.', priority: 'HIGH', targetAudience: 'ATTENDEES', event: { title: 'TechFest 2026' }, createdAt: new Date(Date.now() - 2 * 86400000).toISOString() },
-  { id: 'an3', title: 'Platform Update: New QR Pass Feature Available', body: 'All registered attendees can now access their digital QR pass.', priority: 'NORMAL', targetAudience: 'ALL', event: null, createdAt: new Date(Date.now() - 5 * 86400000).toISOString() },
-]
+
 
 const PRIORITY_COLORS = { 
   URGENT: 'bg-error text-white', 
@@ -17,7 +13,7 @@ const PRIORITY_COLORS = {
 }
 
 export default function AnnouncementsPage() {
-  const [announcements, setAnnouncements] = useState(DEMO_ANNOUNCEMENTS)
+  const [announcements, setAnnouncements] = useState([])
   const [showComposer, setShowComposer] = useState(false)
   const [form, setForm] = useState({ title: '', body: '', priority: 'NORMAL', targetAudience: 'ALL' })
   const [sending, setSending] = useState(false)
