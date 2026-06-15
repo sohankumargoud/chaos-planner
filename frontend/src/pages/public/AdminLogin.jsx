@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { authService } from '../../services/services'
 import { useAuth } from '../../auth/AuthContext'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { Card } from '../../components/layout/Card'
+import { pingServer } from '../../services/api'
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('')
@@ -17,6 +18,10 @@ export default function AdminLogin() {
   const location = useLocation()
   const { login } = useAuth()
 
+  useEffect(() => {
+    pingServer()
+  }, [])
+
   const handleLogin = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -26,7 +31,7 @@ export default function AdminLogin() {
       login(res.data)
       navigate('/admin/dashboard')
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid credentials or missing privileges')
+      setError(err.response?.data?.message || err.message || 'Invalid credentials or missing privileges')
     } finally {
       setLoading(false)
     }

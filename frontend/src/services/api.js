@@ -3,6 +3,7 @@ import axios from 'axios'
 const api = axios.create({
   baseURL: (import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'https://chaos-planner-backend.onrender.com/api').replace(/\/api\/?$/, '').replace(/\/$/, '') + '/api',
   headers: { 'Content-Type': 'application/json' },
+  timeout: 60000, // 60 seconds timeout to prevent infinite hanging
 })
 
 // Attach JWT token from localStorage on every request
@@ -33,5 +34,9 @@ api.interceptors.response.use(
     return Promise.reject(err)
   }
 )
+
+export const pingServer = () => {
+  api.get('/health').catch(() => {}) // Fire and forget
+}
 
 export default api

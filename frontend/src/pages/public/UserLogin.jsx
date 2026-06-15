@@ -5,6 +5,7 @@ import { useAuth } from '../../auth/AuthContext'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
 import { Card } from '../../components/layout/Card'
+import { pingServer } from '../../services/api'
 
 export default function UserLogin() {
   const [email, setEmail] = useState('')
@@ -16,6 +17,10 @@ export default function UserLogin() {
   const navigate = useNavigate()
   const location = useLocation()
   const { login, user } = useAuth()
+
+  useEffect(() => {
+    pingServer()
+  }, [])
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -30,7 +35,7 @@ export default function UserLogin() {
         // Redirect to OTP if not verified
         navigate('/verify-otp', { state: { email, otpType: 'SIGNUP' } })
       } else {
-        setError(err.response?.data?.message || 'Invalid credentials')
+        setError(err.response?.data?.message || err.message || 'Invalid credentials')
       }
     } finally {
       setLoading(false)
