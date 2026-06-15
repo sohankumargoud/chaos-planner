@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
+import { ThemeToggle } from '../components/ui/ThemeToggle'
 import { Button } from '../components/ui/Button'
 
 const navItems = [
@@ -74,7 +75,8 @@ export default function UserLayout() {
         <header className="h-header-height bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-8 sticky top-0 z-40">
           <h2 className="font-headline-sm text-on-surface">Attendee Portal</h2>
           <div className="flex items-center gap-4">
-            <button className="material-symbols-outlined text-secondary hover:text-primary transition-colors">
+            <ThemeToggle />
+            <button onClick={() => navigate('/notifications')} className="material-symbols-outlined text-secondary hover:text-primary transition-colors">
               notifications
             </button>
           </div>

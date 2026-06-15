@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../auth/AuthContext'
 import { Button } from '../components/ui/Button'
+import { ThemeToggle } from '../components/ui/ThemeToggle'
 
 const navItems = [
   { label: 'Dashboard', icon: '⚡', path: '/admin/dashboard' },
@@ -80,6 +81,7 @@ export default function AdminLayout() {
         <header className="h-header-height bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-8 sticky top-0 z-40">
           <h2 className="font-headline-sm text-on-surface">Command Center</h2>
           <div className="flex items-center gap-4">
+            <ThemeToggle />
             <button className="material-symbols-outlined text-secondary hover:text-primary transition-colors">
               notifications
             </button>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
+import { ThemeToggle } from '../../components/ui/ThemeToggle'
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -21,19 +22,11 @@ export default function LandingPage() {
       >
         <div className="flex items-center gap-8">
           <span className="font-display text-display font-bold text-primary">Chaos Planner</span>
-          <nav className="hidden md:flex gap-6">
-            <a className="font-headline-sm text-headline-sm text-primary font-bold border-b-2 border-primary" href="#">Home</a>
-            <a className="font-headline-sm text-headline-sm text-secondary hover:bg-surface-container-low transition-colors px-2 py-1" href="#">Features</a>
-            <a className="font-headline-sm text-headline-sm text-secondary hover:bg-surface-container-low transition-colors px-2 py-1" href="#">Pricing</a>
-          </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button className="material-symbols-outlined text-secondary p-2 hover:bg-surface-container-low transition-colors rounded-full">
-            notifications
-          </button>
-          <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-            CP
-          </div>
+          <ThemeToggle />
+          <Button onClick={() => navigate('/login')} variant="ghost">Log In</Button>
+          <Button onClick={() => navigate('/signup')}>Sign Up</Button>
         </div>
       </header>
 
@@ -77,75 +70,6 @@ export default function LandingPage() {
               </div>
               <div className="absolute -right-12 -bottom-12 opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none">
                 <span className="material-symbols-outlined text-[12rem]">qr_code_scanner</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Bento Grid */}
-        <section className="bg-surface-container-low py-24 px-container-margin">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-12 text-center">
-              <h2 className="font-headline-lg text-4xl mb-4">Operational Excellence</h2>
-              <p className="text-secondary font-body-md max-w-xl mx-auto">Engineered for high-stakes environments where clarity is the primary utility.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-2 bg-white border border-outline-variant p-8 flex flex-col justify-between rounded-xl">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="material-symbols-outlined text-primary">schedule</span>
-                    <h4 className="font-headline-sm text-headline-sm">Real-time Staffing</h4>
-                  </div>
-                  <p className="font-body-md text-body-md text-secondary mb-8 max-w-md">Dynamically assign volunteers to shifts as needs change. Monitor check-ins and capacity in real-time with automated conflict alerts.</p>
-                </div>
-                <div className="bg-surface-container p-4 rounded border border-outline-variant font-mono-sm text-xs">
-                  <div className="flex justify-between border-b border-outline-variant pb-2 mb-2">
-                    <span>SHIFT_ID: 2940</span>
-                    <span className="text-primary font-bold">LIVE_STATUS: 12/15 STAFFED</span>
-                  </div>
-                  <div className="space-y-1 opacity-60">
-                    <p>&gt; Deploying surplus to Entrance B...</p>
-                    <p>&gt; Volunteer #402 checked in at 18:04</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white border border-outline-variant p-8 flex flex-col items-center text-center rounded-xl">
-                <div className="w-full h-48 bg-surface-container flex items-center justify-center mb-6 relative group rounded-lg overflow-hidden">
-                  <span className="material-symbols-outlined text-6xl text-primary opacity-20">qr_code_2</span>
-                  <div className="absolute inset-0 border-2 border-primary border-dashed opacity-40 group-hover:scale-95 transition-transform"></div>
-                </div>
-                <h4 className="font-headline-sm text-headline-sm mb-2">Frictionless QR Entry</h4>
-                <p className="font-body-sm text-body-sm text-secondary">Sub-second validation with offline support for basements and high-density arenas.</p>
-              </div>
-
-              <div className="bg-white border border-outline-variant p-8 rounded-xl">
-                <span className="material-symbols-outlined text-error mb-4">meeting_room</span>
-                <h4 className="font-headline-sm text-headline-sm mb-2">Conflict Resolution</h4>
-                <p className="font-body-md text-body-md text-secondary mb-6">Our proprietary "Room Guard" algorithm prevents double-booking across campus facilities instantly.</p>
-                <div className="space-y-3">
-                  <div className="h-2 w-full bg-surface-container rounded-full overflow-hidden">
-                    <div className="h-full bg-error w-3/4"></div>
-                  </div>
-                  <div className="flex justify-between font-label-sm text-[10px] uppercase text-error">
-                    <span>Room 402 Conflict</span>
-                    <span>High Priority</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="md:col-span-2 bg-white border border-outline-variant p-8 grid md:grid-cols-2 gap-8 items-center rounded-xl">
-                <div>
-                  <h4 className="font-headline-sm text-headline-sm mb-2">Predictive Analytics</h4>
-                  <p className="font-body-md text-body-md text-secondary">Understand attendee flow and peak load times before they become bottlenecks. Data-driven decision making for the next event.</p>
-                </div>
-                <div className="h-32 flex items-end gap-1 px-4">
-                  <div className="w-full bg-primary-container h-1/2 rounded-t-sm"></div>
-                  <div className="w-full bg-primary-container h-3/4 rounded-t-sm"></div>
-                  <div className="w-full bg-primary h-full rounded-t-sm"></div>
-                  <div className="w-full bg-primary-container h-2/3 rounded-t-sm"></div>
-                  <div className="w-full bg-primary-container h-1/2 rounded-t-sm"></div>
-                </div>
               </div>
             </div>
           </div>
