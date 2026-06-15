@@ -100,13 +100,17 @@ public class AuthService {
     }
 
     private AuthResponse authenticate(LoginRequest request, String requiredRole) {
+        if (!userRepository.existsByEmail(request.getEmail())) {
+            throw new ApiException("Invalid email", HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS");
+        }
+
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         } catch (DisabledException e) {
             throw new ApiException("Account not verified. Please verify your OTP.", HttpStatus.FORBIDDEN, "NOT_VERIFIED");
         } catch (BadCredentialsException e) {
-            throw new ApiException("Invalid email or password", HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS");
+            throw new ApiException("Wrong password", HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS");
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
