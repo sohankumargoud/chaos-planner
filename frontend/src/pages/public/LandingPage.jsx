@@ -17,7 +17,7 @@ export default function LandingPage() {
     <div className="selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen bg-surface-container-lowest">
       {/* TopAppBar */}
       <header
-        className={`flex justify-between items-center h-header-height px-container-margin w-full sticky top-0 z-50 transition-all ${scrolled ? 'shadow-sm bg-white/95 backdrop-blur-md' : 'bg-surface-container-lowest border-b border-outline-variant'
+        className={`flex justify-between items-center h-header-height px-container-margin w-full sticky top-0 z-50 transition-all ${scrolled ? 'shadow-sm bg-surface-container-lowest/95 backdrop-blur-md' : 'bg-surface-container-lowest border-b border-outline-variant'
           }`}
       >
         <div className="flex items-center gap-8">
@@ -56,7 +56,7 @@ export default function LandingPage() {
             {/* User Card */}
             <div
               onClick={() => navigate('/login')}
-              className="group relative bg-white border border-outline-variant p-8 hover:border-primary transition-colors cursor-pointer overflow-hidden rounded-xl"
+              className="group relative bg-surface-container-low border border-outline-variant p-8 hover:border-primary transition-colors cursor-pointer overflow-hidden rounded-xl"
             >
               <div className="relative z-10">
                 <div className="w-12 h-12 bg-secondary-container text-on-secondary-container flex items-center justify-center mb-6 rounded-lg">
@@ -76,13 +76,13 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-24 px-container-margin bg-on-surface text-white relative overflow-hidden">
+        <section className="py-24 px-container-margin bg-inverse-surface text-inverse-on-surface relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <div className="w-full h-full opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
+            <div className="w-full h-full opacity-30" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, var(--color-outline-variant) 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
           </div>
           <div className="max-w-4xl mx-auto text-center relative z-10">
             <h2 className="font-display text-5xl font-extrabold mb-8">Ready to Restore Order?</h2>
-            <p className="font-body-lg text-body-lg mb-10 text-surface-container-highest">Join the organizations already running their logistics on Chaos Planner.</p>
+            <p className="font-body-lg text-body-lg mb-10 opacity-90">Join the organizations already running their logistics on Chaos Planner.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button onClick={() => navigate('/signup')} className="px-10 py-4 text-on-primary-fixed hover:brightness-110">
                 Create Account
