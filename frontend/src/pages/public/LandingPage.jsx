@@ -61,7 +61,7 @@ export default function LandingPage() {
             <h2 className="font-display text-5xl font-extrabold mb-8">Ready to Restore Order?</h2>
             <p className="font-body-lg text-body-lg mb-10 opacity-90">Join the organizations already running their logistics on Chaos Planner.</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button onClick={() => navigate('/signup')} className="px-10 py-4 text-on-primary-fixed hover:brightness-110">
+              <Button onClick={() => navigate('/signup')} className="px-10 py-4 hover:brightness-110">
                 Create Account
               </Button>
             </div>
