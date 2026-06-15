@@ -3,6 +3,7 @@ package com.chaosplanner.dto.user;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -14,4 +15,5 @@ public class UserProfileResponse {
     private String email;
     private String phone;
     private String avatarUrl;
+    private List<String> roles;
 }

@@ -13,7 +13,8 @@ const navItems = [
   { label: 'QR Check-In', icon: '📷', path: '/admin/checkin' },
   { label: 'Announcements', icon: '📣', path: '/admin/announcements' },
   { label: 'Analytics', icon: '📊', path: '/admin/analytics' },
-  { label: 'Profile Settings', icon: 'manage_accounts', path: '/admin/profile' },
+  { label: 'Users & Roles', icon: 'shield_person', path: '/admin/users', reqRole: 'ROLE_ADMIN' },
+  { label: 'Profile Settings', icon: 'settings', path: '/admin/profile', reqRole: 'ROLE_ADMIN' },
 ]
 
 export default function AdminLayout() {
@@ -38,7 +39,7 @@ export default function AdminLayout() {
 
         <nav className="p-3 flex-1">
           <div className="text-[11px] font-bold text-outline uppercase tracking-widest px-3 py-2">Operations</div>
-          {navItems.map(item => (
+          {navItems.filter(item => !item.reqRole || user?.roles?.includes(item.reqRole)).map(item => (
             <NavLink
               key={item.path}
               to={item.path}
@@ -67,7 +68,7 @@ export default function AdminLayout() {
             </div>
             <div className="overflow-hidden">
               <div className="text-body-sm font-semibold text-on-surface truncate">{user?.fullName || 'Admin'}</div>
-              <div className="text-[11px] text-secondary truncate">Administrator</div>
+              <div className="text-[11px] text-secondary truncate">{user?.roles?.includes('ROLE_ADMIN') ? 'Super Admin' : 'Sub-Admin'}</div>
             </div>
           </div>
           <Button variant="ghost" onClick={handleLogout} className="w-full justify-center border border-outline-variant">

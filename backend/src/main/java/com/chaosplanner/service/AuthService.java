@@ -96,7 +96,7 @@ public class AuthService {
     }
 
     public AuthResponse loginAdmin(LoginRequest request) {
-        return authenticate(request, "ROLE_ADMIN");
+        return authenticateAdminPortal(request);
     }
 
     private AuthResponse authenticate(LoginRequest request, String requiredRole) {
@@ -118,6 +118,37 @@ public class AuthService {
             .anyMatch(a -> a.getAuthority().equals(requiredRole));
 
         if (!hasRole) {
+            throw new ApiException("Access denied for this login portal", HttpStatus.FORBIDDEN, "WRONG_PORTAL");
+        }
+
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        String token = jwtUtil.generateToken(userDetails);
+        List<String> roles = userDetails.getAuthorities().stream()
+            .map(a -> a.getAuthority())
+            .collect(Collectors.toList());
+
+        return new AuthResponse(token, user.getId(), user.getEmail(), user.getFullName(), roles);
+    }
+
+    private AuthResponse authenticateAdminPortal(LoginRequest request) {
+        if (!userRepository.existsByEmail(request.getEmail())) {
+            throw new ApiException("Invalid email", HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS");
+        }
+
+        try {
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        } catch (DisabledException e) {
+            throw new ApiException("Account not verified. Please verify your OTP.", HttpStatus.FORBIDDEN, "NOT_VERIFIED");
+        } catch (BadCredentialsException e) {
+            throw new ApiException("Wrong password", HttpStatus.UNAUTHORIZED, "BAD_CREDENTIALS");
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(request.getEmail());
+        boolean hasAdminAccess = userDetails.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_SUB_ADMIN"));
+
+        if (!hasAdminAccess) {
             throw new ApiException("Access denied for this login portal", HttpStatus.FORBIDDEN, "WRONG_PORTAL");
         }
 

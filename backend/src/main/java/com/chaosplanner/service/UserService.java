@@ -21,13 +21,17 @@ public class UserService {
     public UserProfileResponse getProfile(String email) {
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new ApiException("User not found", HttpStatus.NOT_FOUND, "USER_NOT_FOUND"));
-            
+        java.util.List<String> roles = user.getRoles().stream()
+            .map(com.chaosplanner.entity.Role::getName)
+            .collect(java.util.stream.Collectors.toList());
+
         return new UserProfileResponse(
             user.getId(),
             user.getFullName(),
             user.getEmail(),
             user.getPhone(),
-            user.getAvatarUrl()
+            user.getAvatarUrl(),
+            roles
         );
     }
 
@@ -50,12 +54,17 @@ public class UserService {
 
         userRepository.save(user);
 
+        java.util.List<String> roles = user.getRoles().stream()
+            .map(com.chaosplanner.entity.Role::getName)
+            .collect(java.util.stream.Collectors.toList());
+
         return new UserProfileResponse(
             user.getId(),
             user.getFullName(),
             user.getEmail(),
             user.getPhone(),
-            user.getAvatarUrl()
+            user.getAvatarUrl(),
+            roles
         );
     }
 }

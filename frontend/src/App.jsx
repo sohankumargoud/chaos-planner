@@ -26,6 +26,7 @@ import RoomsConflicts from './pages/admin/RoomsConflicts'
 import QRCheckIn from './pages/admin/QRCheckIn'
 import AnnouncementsPage from './pages/admin/AnnouncementsPage'
 import AnalyticsPage from './pages/admin/AnalyticsPage'
+import UsersManagement from './pages/admin/UsersManagement'
 
 // User pages
 import UserLayout from './layouts/UserLayout'
@@ -67,6 +68,7 @@ export default function App() {
               <Route path="/admin/checkin" element={<QRCheckIn />} />
               <Route path="/admin/announcements" element={<AnnouncementsPage />} />
               <Route path="/admin/analytics" element={<AnalyticsPage />} />
+              <Route path="/admin/users" element={<UsersManagement />} />
             </Route>
           </Route>
 

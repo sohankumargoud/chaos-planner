@@ -38,6 +38,13 @@ public class DataSeeder implements CommandLineRunner {
             return roleRepository.save(r);
         });
 
+        Role subAdminRole = roleRepository.findByName("ROLE_SUB_ADMIN").orElseGet(() -> {
+            log.info("Creating ROLE_SUB_ADMIN...");
+            Role r = new Role();
+            r.setName("ROLE_SUB_ADMIN");
+            return roleRepository.save(r);
+        });
+
         // Seed Admin User
         if (!userRepository.existsByEmail("admin@chaos.dev")) {
             log.info("Creating default admin account (admin@chaos.dev)...");

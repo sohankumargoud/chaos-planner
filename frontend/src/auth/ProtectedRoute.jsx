@@ -22,8 +22,15 @@ export default function ProtectedRoute({ requiredRole }) {
     return <Navigate to={loginPath} state={{ from: location }} replace />
   }
 
-  if (!activeUser.roles?.includes(requiredRole)) {
-    if (requiredRole === 'ROLE_USER' && activeUser.roles?.includes('ROLE_ADMIN')) {
+  const hasAccess = () => {
+    if (requiredRole === 'ROLE_ADMIN') {
+      return activeUser.roles?.includes('ROLE_ADMIN') || activeUser.roles?.includes('ROLE_SUB_ADMIN');
+    }
+    return activeUser.roles?.includes(requiredRole);
+  }
+
+  if (!hasAccess()) {
+    if (requiredRole === 'ROLE_USER' && (activeUser.roles?.includes('ROLE_ADMIN') || activeUser.roles?.includes('ROLE_SUB_ADMIN'))) {
       return <Navigate to="/admin/dashboard" replace />
     } else if (requiredRole === 'ROLE_ADMIN' && activeUser.roles?.includes('ROLE_USER')) {
       return <Navigate to="/dashboard" replace />

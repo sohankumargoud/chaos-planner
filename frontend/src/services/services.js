@@ -49,6 +49,11 @@ export const analyticsService = {
   getDashboard: () => api.get('/admin/analytics/dashboard'),
 }
 
+export const adminUserService = {
+  list: (page = 0, size = 20) => api.get(`/admin/users?page=${page}&size=${size}`),
+  updateRole: (id, role) => api.put(`/admin/users/${id}/role`, { role }),
+}
+
 export const userEventService = {
   list: (page = 0, size = 12) => api.get(`/user/events?page=${page}&size=${size}`),
   get: (id) => api.get(`/user/events/${id}`),
