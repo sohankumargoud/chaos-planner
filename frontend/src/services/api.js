@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://chaos-planner-backend.onrender.com/api',
+  baseURL: (import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || 'https://chaos-planner-backend.onrender.com/api').replace(/\/api\/?$/, '').replace(/\/$/, '') + '/api',
   headers: { 'Content-Type': 'application/json' },
 })
 
@@ -9,7 +9,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('cp_token')
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`
+    config.headers.set('Authorization', `Bearer ${token}`)
   }
   return config
 })
@@ -25,7 +25,10 @@ api.interceptors.response.use(
       localStorage.removeItem('cp_user')
       
       const isUrlAdmin = window.location.pathname.startsWith('/admin')
-      window.location.href = isUrlAdmin ? '/admin/login' : '/login'
+      const targetUrl = isUrlAdmin ? '/admin/login' : '/login'
+      if (window.location.pathname !== targetUrl) {
+        window.location.href = targetUrl
+      }
     }
     return Promise.reject(err)
   }

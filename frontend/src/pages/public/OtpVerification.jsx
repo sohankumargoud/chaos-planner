@@ -29,7 +29,29 @@ export default function OtpVerification() {
     return () => clearInterval(timer)
   }, [email, navigate])
 
+  const handlePaste = (e) => {
+    e.preventDefault()
+    const pastedData = e.clipboardData.getData('text').trim()
+    if (!/^\d+$/.test(pastedData)) return
+
+    const digits = pastedData.slice(0, 6).split('')
+    const newOtp = [...otp]
+    digits.forEach((digit, i) => {
+      newOtp[i] = digit
+    })
+    setOtp(newOtp)
+    setError('')
+    
+    // Focus last filled input
+    const focusIndex = Math.min(digits.length, 5)
+    inputRefs.current[focusIndex]?.focus()
+  }
+
   const handleChange = (index, value) => {
+    // Only allow single digit if typing normally
+    if (value.length > 1) {
+       value = value.slice(-1)
+    }
     if (!/^\d*$/.test(value)) return
     
     const newOtp = [...otp]
@@ -117,6 +139,7 @@ export default function OtpVerification() {
                   value={digit}
                   onChange={(e) => handleChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
+                  onPaste={handlePaste}
                   disabled={success || loading}
                 />
               ))}

@@ -11,6 +11,7 @@ import UserLogin from './pages/public/UserLogin'
 import Signup from './pages/public/Signup'
 import OtpVerification from './pages/public/OtpVerification'
 import ForgotPassword from './pages/public/ForgotPassword'
+import ResetPassword from './pages/public/ResetPassword'
 
 // Admin pages
 import AdminLayout from './layouts/AdminLayout'
@@ -49,6 +50,7 @@ export default function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/verify-otp" element={<OtpVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Admin - protected ADMIN role */}
           <Route element={<ProtectedRoute requiredRole="ROLE_ADMIN" />}>

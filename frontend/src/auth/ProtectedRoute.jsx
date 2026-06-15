@@ -23,9 +23,15 @@ export default function ProtectedRoute({ requiredRole }) {
   }
 
   if (!activeUser.roles?.includes(requiredRole)) {
-    // Wrong role — redirect to their dashboard
-    const redirectTo = activeUser.roles?.includes('ROLE_ADMIN') ? '/admin/dashboard' : '/dashboard'
-    return <Navigate to={redirectTo} replace />
+    if (requiredRole === 'ROLE_USER' && activeUser.roles?.includes('ROLE_ADMIN')) {
+      return <Navigate to="/admin/dashboard" replace />
+    } else if (requiredRole === 'ROLE_ADMIN' && activeUser.roles?.includes('ROLE_USER')) {
+      return <Navigate to="/dashboard" replace />
+    } else {
+      localStorage.removeItem('cp_token')
+      localStorage.removeItem('cp_user')
+      return <Navigate to={requiredRole === 'ROLE_ADMIN' ? '/admin/login' : '/login'} replace />
+    }
   }
 
   return <Outlet />

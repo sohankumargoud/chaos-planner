@@ -21,7 +21,7 @@ export default function ForgotPassword() {
       await authService.forgotPassword({ email })
       setSuccess(true)
       setTimeout(() => {
-        navigate('/verify-otp', { state: { email, otpType: 'RESET_PASSWORD' } })
+        navigate('/reset-password', { state: { email } })
       }, 2000)
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to request password reset.')
