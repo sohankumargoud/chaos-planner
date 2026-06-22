@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: chaos-planner-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: chaos-planner-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        value: chaos
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: chaos-planner-db
+          property: password
+
+  - type: web
+    name: chaos-planner-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: chaos-planner-backend
+          envVarKey: RENDER_EXTERNAL_URL
+
+databases:
+  - name: chaos-planner-db
+    databaseName: chaos_db
+    user: chaos
+    plan: free
