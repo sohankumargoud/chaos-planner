@@ -20,6 +20,8 @@ public class EventRequest {
 
     private Integer venueId;
     private Integer roomId;
+    private java.util.UUID clubId;
+
 
     @NotNull
     private LocalDate eventDate;

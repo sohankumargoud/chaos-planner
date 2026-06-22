@@ -28,6 +28,7 @@ public class EventService {
     private final RoomRepository roomRepository;
     private final RegistrationRepository registrationRepository;
     private final CheckInRepository checkInRepository;
+    private final ClubRepository clubRepository;
 
     @Transactional
     public EventResponse createEvent(EventRequest req, String organizerEmail) {
@@ -100,6 +101,11 @@ public class EventService {
                 .orElseThrow(() -> new ResourceNotFoundException("Room", String.valueOf(req.getRoomId())));
             event.setRoom(room);
         }
+        if (req.getClubId() != null) {
+            com.chaosplanner.entity.Club club = clubRepository.findById(req.getClubId())
+                .orElseThrow(() -> new ResourceNotFoundException("Club", String.valueOf(req.getClubId())));
+            event.setClub(club);
+        }
         return event;
     }
 
@@ -122,6 +128,11 @@ public class EventService {
         r.setRegistrationCloseAt(e.getRegistrationCloseAt());
         r.setCreatedAt(e.getCreatedAt());
         r.setUpdatedAt(e.getUpdatedAt());
+
+        if (e.getClub() != null) {
+            r.setClubId(e.getClub().getId());
+            r.setClubName(e.getClub().getName());
+        }
 
         if (e.getVenue() != null) {
             r.setVenueId(e.getVenue().getId());

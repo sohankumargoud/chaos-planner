@@ -13,6 +13,8 @@ public class EventResponse {
     private String title;
     private String organizerName;
     private UUID organizerId;
+    private UUID clubId;
+    private String clubName;
     private String description;
     private String category;
     private String venueName;

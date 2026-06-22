@@ -30,6 +30,10 @@ public class Event {
     @JoinColumn(name = "organizer_id", nullable = false)
     private User organizer;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "club_id")
+    private Club club;
+
     @Column(columnDefinition = "TEXT")
     private String description;
 

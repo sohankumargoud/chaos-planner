@@ -20,6 +20,11 @@ export const adminEventService = {
   delete: (id) => api.delete(`/admin/events/${id}`),
 }
 
+export const adminClubService = {
+  list: () => api.get('/admin/clubs'),
+  create: (data) => api.post('/admin/clubs', data),
+}
+
 export const adminRegService = {
   getByEvent: (eventId) => api.get(`/admin/registrations/event/${eventId}`),
   approve: (id) => api.patch(`/admin/registrations/${id}/approve`),

@@ -6,6 +6,7 @@ import { ThemeToggle } from '../components/ui/ThemeToggle'
 
 const navItems = [
   { label: 'Dashboard', icon: '⚡', path: '/admin/dashboard' },
+  { label: 'My Clubs', icon: '🏢', path: '/admin/clubs' },
   { label: 'Events', icon: '📅', path: '/admin/events' },
   { label: 'Registrations', icon: '📝', path: '/admin/registrations' },
   { label: 'Volunteer Shifts', icon: '🧑‍🤝‍🧑', path: '/admin/shifts' },

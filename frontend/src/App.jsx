@@ -17,6 +17,7 @@ import ResetPassword from './pages/public/ResetPassword'
 // Admin pages
 import AdminLayout from './layouts/AdminLayout'
 import AdminDashboard from './pages/admin/AdminDashboard'
+import ClubsManagement from './pages/admin/ClubsManagement'
 import AdminProfileSettings from './pages/admin/AdminProfileSettings'
 import EventsManagement from './pages/admin/EventsManagement'
 import EventDetail from './pages/admin/EventDetail'
@@ -59,6 +60,7 @@ export default function App() {
           <Route element={<ProtectedRoute requiredRole="ROLE_ADMIN" />}>
             <Route element={<AdminLayout />}>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/clubs" element={<ClubsManagement />} />
               <Route path="/admin/profile" element={<AdminProfileSettings />} />
               <Route path="/admin/events" element={<EventsManagement />} />
               <Route path="/admin/events/:id" element={<EventDetail />} />

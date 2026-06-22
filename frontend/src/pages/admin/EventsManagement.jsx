@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { adminEventService } from '../../services/services'
+import { adminEventService, adminClubService } from '../../services/services'
 import { Card } from '../../components/layout/Card'
 import { Button } from '../../components/ui/Button'
 import { Input } from '../../components/ui/Input'
@@ -154,9 +154,14 @@ export default function EventsManagement() {
 }
 
 function CreateEventModal({ onClose, onCreated }) {
-  const [form, setForm] = useState({ title: '', description: '', category: '', eventDate: '', startTime: '09:00', endTime: '17:00', capacity: 100, approvalRequired: false, status: 'DRAFT' })
+  const [form, setForm] = useState({ title: '', description: '', category: '', eventDate: '', startTime: '09:00', endTime: '17:00', capacity: 100, approvalRequired: false, status: 'DRAFT', clubId: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [clubs, setClubs] = useState([])
+
+  useEffect(() => {
+    adminClubService.list().then(res => setClubs(res.data)).catch(() => {})
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -193,12 +198,25 @@ function CreateEventModal({ onClose, onCreated }) {
             />
             
             <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="font-label-md text-label-md text-on-surface uppercase tracking-wider block">Hosting Club</label>
+                <select
+                  className="w-full px-3 py-2.5 bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all"
+                  value={form.clubId}
+                  onChange={e => setForm(f => ({ ...f, clubId: e.target.value || null }))}
+                >
+                  <option value="">None / Independent</option>
+                  {clubs.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                </select>
+              </div>
               <Input 
                 label="Category"
                 value={form.category} 
                 onChange={e => setForm(f => ({ ...f, category: e.target.value }))} 
                 placeholder="Technology, Cultural, etc." 
               />
+            </div>
+            <div className="grid grid-cols-1 gap-4">
               <Input 
                 label="Capacity *"
                 type="number" 
